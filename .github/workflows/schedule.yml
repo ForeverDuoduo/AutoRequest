@@ -1,25 +1,28 @@
 name: Scheduled Request
 
 on:
-  schedule:
-    # CST (UTC+8): 4:00, 9:00, 14:00, 19:00
-    - cron: '0 1,6,11,20 * * *'
   workflow_dispatch:
+  schedule:
+    - cron: "0 1,6,11,20 * * *"
 
 jobs:
   request:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout
+        uses: actions/checkout@v4
 
-      - uses: actions/setup-python@v5
+      - name: Setup Python
+        uses: actions/setup-python@v5
         with:
-          python-version: '3.14'
+          python-version: "3.11"
 
-      - run: pip install -e .
+      - name: Install package
+        run: pip install -e .
 
-      - run: python -m autorequest.main
+      - name: Run request
         env:
           API_KEY: ${{ secrets.API_KEY }}
           API_BASE_URL: ${{ secrets.API_BASE_URL }}
           MODEL: ${{ secrets.MODEL }}
+        run: python -m autorequest.main
