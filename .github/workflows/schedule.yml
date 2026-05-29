@@ -28,7 +28,5 @@ jobs:
 
       - name: Run request
         env:
-          API_KEY: ${{ secrets.API_KEY }}
-          API_BASE_URL: ${{ secrets.API_BASE_URL }}
-          MODEL: ${{ secrets.MODEL }}
+          PROVIDERS: ${{ secrets.PROVIDERS }}
         run: python -m autorequest.main
